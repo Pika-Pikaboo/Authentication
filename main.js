@@ -1,49 +1,77 @@
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/confetti_cuisine", {
   useNewUrlParser: true,
-}); // connecting to local database
+});
 
-const db = mongoose.connection; // assign connected database to db variable
+const db = mongoose.connection;
 mongoose.Promise = global.Promise;
 db.once("open", () => {
   console.log("Successfully connected to MongoDB using Mongoose");
-}); // display messsage for once when it's done
+});
 
 const express = require("express"),
   app = express(),
+  router = express.Router(),
+  methodOverride = require("method-override"),
   layouts = require("express-ejs-layouts"),
   homeController = require("./controllers/homeController"),
   errorController = require("./controllers/errorController"),
   subscribersController = require("./controllers/subscribersController");
 
-app.set("view engine", "ejs"); // tell the view engine of Express.js to use ejs format
-// set the view engine of Express.js to ejs engine
-app.set("port", process.env.PORT || 3000); // set the port number
+app.use("/", router);
 
-app.use(layouts); // middleware to use ejs layouts
-app.use(express.static("public")); // for static files such as images, css and js
-app.use(
+app.set("view engine", "ejs");
+app.set("port", process.env.PORT || 3000);
+
+router.use(layouts);
+router.use(express.static("public"));
+router.use(
   express.urlencoded({
     extended: false,
   })
-); // middleware to encode incoming url context
-app.use(express.json()); // middleware to encode incoming data to json format
-
-app.get("/", homeController.showCourses);
-app.get("/courses", homeController.showCourses); // home page
-app.get("/contact", subscribersController.getSubscriptionPage); // contact page viewer page
-app.get(
-  "/subscribers",
-  subscribersController.getAllSubscribers,
-  (req, res, next) => {
-    console.log(req.data);
-  }
+);
+router.use(express.json());
+router.use(
+  methodOverride("_method", {
+    methods: ["POST", "GET"],
+  })
 );
 
-app.post("/subscribe", subscribersController.saveSubscriber); // contact form submission
+router.get("/", homeController.showHome);
+router.get("/courses", homeController.showCourses);
+router.get(
+  "/subscribers",
+  subscribersController.index,
+  subscribersController.indexView
+);
+router.get("/subscribers/new", subscribersController.new);
+router.get(
+  "/subscribers/:id",
+  subscribersController.show,
+  subscribersController.showView
+);
+router.get("/subscribers/:id/edit", subscribersController.edit);
 
-app.use(errorController.pageNotFoundError); // custom error middleware
-app.use(errorController.internalServerError); // custom error middleware
+router.put(
+  "/subscribers/:id/update",
+  subscribersController.update,
+  subscribersController.redirectView
+);
+
+router.post(
+  "/subscribers/create",
+  subscribersController.create,
+  subscribersController.redirectView
+);
+
+router.delete(
+  "/subscribers/:id/delete",
+  subscribersController.delete,
+  subscribersController.redirectView
+);
+
+router.use(errorController.pageNotFoundError);
+router.use(errorController.internalServerError);
 
 app.listen(app.get("port"), () => {
   console.log(`Server is running at http://localhost:${app.get("port")}`);

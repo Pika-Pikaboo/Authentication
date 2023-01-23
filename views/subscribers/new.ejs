@@ -1,0 +1,95 @@
+<style>
+  .data-form {
+    width: 100%;
+    padding-inline: 15%;
+  }
+
+  .subscribe-form {
+    width: 600px;
+    margin-inline: auto;
+    max-width: 100%;
+  }
+
+  h2 {
+    width: max-content;
+    padding-inline: 15px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .subscribe-form > label {
+    display: block;
+    width: 100%;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subscribe-form > label:not(:first-child) {
+    margin-top: 1.5rem;
+  }
+
+  .subscribe-form > input {
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 10px 15px;
+    border: 2px solid gainsboro;
+    border-radius: 7px;
+    outline: none;
+  }
+
+  .subscribe-form > input:focus {
+    border-color: transparent;
+    outline: 2px solid orange;
+  }
+
+  .subscribe-form > button {
+    width: 100%;
+    background-color: orange;
+    font-size: 1.35rem;
+    font-weight: bolder;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 7px;
+    appearance: none;
+    border: none;
+    margin-top: 1.5rem;
+    cursor: pointer;
+  }
+
+  .subscribe-form > button:active {
+    background-color: rgba(255, 165, 0, 0.75);
+  }
+</style>
+
+<div class="data-form">
+  <h2>Create a new subscriber:</h2>
+  <form action="/subscribers/create" method="POST" class="subscribe-form">
+    <label for="inputName">Name</label>
+    <input
+      type="text"
+      name="name"
+      id="inputName"
+      placeholder="Name"
+      autofocus
+    />
+    <label for="inputEmail">Email address</label>
+    <input
+      type="email"
+      name="email"
+      id="inputEmail"
+      placeholder="Email Address"
+      pattern=".+@gmail.com"
+      required
+    />
+    <label for="inputZipCode">Zip Code</label>
+    <input
+      type="text"
+      name="zipCode"
+      id="inputZipCode"
+      pattern="[0-9]{5}"
+      placeholder="Zip Code"
+      required
+    />
+    <button type="submit">Create</button>
+  </form>
+</div>

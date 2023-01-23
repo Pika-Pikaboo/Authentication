@@ -1,0 +1,53 @@
+<style>
+  .single-container {
+    width: 100%;
+    padding-inline: 15%;
+  }
+  .single-container > h2 {
+    width: max-content;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .single-container > p {
+    color: silver;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  table.single {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    text-align: center;
+  }
+  table.single,
+  th,
+  td,
+  tr {
+    font-size: 1.5rem;
+    padding: 15px 25px;
+    border-collapse: collapse;
+    border: 2px solid gainsboro;
+  }
+</style>
+
+<div class="single-container">
+  <h2>Subscriber Data for <%= subscriber.name %></h2>
+  <table class="single">
+    <tr>
+      <th>Name</th>
+      <td><%= subscriber.name %></td>
+    </tr>
+    <tr>
+      <th>Email</th>
+      <td><%= subscriber.email %></td>
+    </tr>
+    <tr>
+      <th>Zip Code</th>
+      <td><%= subscriber.zipCode %></td>
+    </tr>
+  </table>
+
+  <p>
+    This subscriber has <%= subscriber.courses.length %> associated course(s)
+  </p>
+</div>

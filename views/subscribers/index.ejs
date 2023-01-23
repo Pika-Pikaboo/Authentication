@@ -1,0 +1,60 @@
+<style>
+  .table-container {
+    width: 100%;
+    padding-inline: 15%;
+  }
+  .table-container > h2 {
+    width: max-content;
+    padding-inline: 10px;
+    text-align: center;
+    margin-inline: auto;
+  }
+  .table {
+    width: max-content;
+    margin-inline: auto;
+    table-layout: fixed;
+  }
+  table,
+  th,
+  tr,
+  td {
+    font-size: 1.5rem;
+    padding: 15px 25px;
+    border-collapse: collapse;
+    border: 2px solid gainsboro;
+  }
+</style>
+
+<div class="table-container">
+  <h2>Subscribers Table</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Zip Code</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% subscribers.forEach(user => { %>
+      <tr>
+        <td>
+          <a href="<%=`/subscribers/${user._id}`%>"> <%= user.name %> </a>
+        </td>
+        <td><%= user.email %></td>
+        <td><%= user.zipCode %></td>
+        <td><a href="<%=`/subscribers/${user._id}/edit`%>">Edit</a></td>
+        <td>
+          <a
+            href="<%=`/subscribers/${user._id}/delete?_method=DELETE`%>"
+            onclick="return confirm('Are you sure you want to delete this record?')"
+            >Delete</a
+          >
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>

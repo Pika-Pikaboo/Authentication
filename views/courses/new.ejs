@@ -1,0 +1,33 @@
+<div class="data-form">
+  <form action="/courses/create" method="POST">
+    <h2>Create a new course:</h2>
+    <label for="title">Title</label>
+    <input
+      type="text"
+      name="titleName"
+      id="title"
+      placeholder="Title"
+      autofocus
+    />
+    <label for="des">Description</label>
+    <input
+      type="text"
+      name="description"
+      id="des"
+      placeholder="Description"
+      required
+    />
+    <label for="students">Max Students</label>
+    <input
+      type="number"
+      name="maxStudents"
+      id="students"
+      pattern="[0-9]{5}"
+      min="0"
+      max="99999"
+      placeholder="Max Students"
+      required
+    />
+    <button type="submit">Create</button>
+  </form>
+</div>

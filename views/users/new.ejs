@@ -1,0 +1,43 @@
+<div class="data-form">
+  <form action="/users/create" method="POST">
+    <h2>Create a new user:</h2>
+    <label for="first">First Name</label>
+    <input
+      type="text"
+      name="firstName"
+      id="first"
+      placeholder="First Name"
+      autofocus
+    />
+    <label for="last">Last Name</label>
+    <input
+      type="text"
+      name="lastName"
+      id="last"
+      placeholder="Last Name"
+      required
+    />
+    <label for="email">Email</label>
+    <input
+      type="email"
+      name="email"
+      id="email"
+      pattern=".+@gmail.com"
+      placeholder="Email"
+      required
+    />
+    <label for="password">Password</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      min="8"
+      max="25"
+      pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+    "
+    />
+    <label for="zip">Zip Code</label>
+    <input type="text" name="zipCode" id="zip" min="4" max="5" />
+    <button type="submit">Create</button>
+  </form>
+</div>

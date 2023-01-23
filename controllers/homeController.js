@@ -13,8 +13,16 @@ const courses = [
   },
 ];
 
-exports.showCourses = (req, res) => {
-  res.render("courses", {
-    offeredCourses: courses,
-  });
+module.exports = {
+  showCourses: (req, res) => {
+    res.render("courses", {
+      offeredCourses: courses,
+    });
+  },
+
+  showHome: (req, res) => {
+    res.render("home", {
+      offeredCourses: courses,
+    });
+  },
 };
