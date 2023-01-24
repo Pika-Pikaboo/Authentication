@@ -1,0 +1,51 @@
+<style>
+  .single-user-container {
+    width: 100%;
+    padding-inline: 15%;
+  }
+  .single-user-container > h2 {
+    width: max-content;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .single-user-container > p {
+    color: silver;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  table.single-user {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    text-align: center;
+  }
+  table.single-user,
+  th,
+  td,
+  tr {
+    font-size: 1.5rem;
+    padding: 15px 25px;
+    border-collapse: collapse;
+    border: 2px solid gainsboro;
+  }
+</style>
+
+<div class="single-user-container">
+  <h2>User Data for <%= user.fullName %></h2>
+  <table class="single-user">
+    <tr>
+      <th>Name</th>
+      <td><%= user.fullName %></td>
+    </tr>
+    <tr>
+      <th>Email</th>
+      <td><%= user.email %></td>
+    </tr>
+    <tr>
+      <th>Zip Code</th>
+      <td><%= user.zipCode %></td>
+    </tr>
+  </table>
+
+  <p>This user has <%= user.courses.length %> associated course(s)</p>
+</div>

@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="../js/noti.js" defer></script>
     <style>
+      @import url(../css/notifications.css);
       *,
       *::before,
       *::after {
@@ -13,6 +22,9 @@
       body {
         margin: 0;
         padding: 0;
+        width: 100%;
+        min-height: 100vh;
+        background-color: #eee;
         font-family: sans-serif;
       }
 
@@ -61,10 +73,6 @@
       .nav-container > h2 {
         text-align: center;
       }
-      .thanks {
-        width: 100%;
-        text-align: center;
-      }
     </style>
     <title>Layouts</title>
   </head>
@@ -77,10 +85,39 @@
           <li><a href="/">Home</a></li>
           <li><a href="/courses">Courses</a></li>
           <li><a href="/subscribers/new">Contact</a></li>
-          <li><a href="/users/new">User</a></li>
+          <li><a href="/users/login">User</a></li>
         </ul>
       </div>
     </nav>
+    <div>
+      <% if (flashMessages) { %> <% if (flashMessages.success) { %>
+      <div class="flashes">
+        <div class="left" style="background-color: greenyellow">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <div class="center">
+          <p>Changes saved</p>
+          <p><%= flashMessages.success %></p>
+        </div>
+        <div class="right">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
+      <% } else if (flashMessages.error) { %>
+      <div class="flashes">
+        <div class="left" style="background-color: #5b0c0d">
+          <i class="fa-solid fa-trash" style="color: #f45f61"></i>
+        </div>
+        <div class="center">
+          <p style="color: #dc6667">Operation Failed</p>
+          <p>User action cannot be made</p>
+        </div>
+        <div class="right">
+          <i class="fa-solid fa-xmark" data-id="3"></i>
+        </div>
+      </div>
+      <% } %> <% } %>
+    </div>
     <%- body%>
   </body>
 </html>

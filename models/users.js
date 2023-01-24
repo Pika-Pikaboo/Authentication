@@ -1,7 +1,7 @@
 /* Model is for controllers */
 
 const mongoose = require("mongoose"),
-  Subscriber = require("./subscriber"),
+  Subscriber = require("./subscribers"),
   { Schema } = mongoose,
   userSchema = new Schema(
     {

@@ -1,0 +1,101 @@
+<style>
+  .user-edit-form {
+    width: 100%;
+    padding-inline: 15%;
+  }
+  .edit-user-form {
+    width: 600px;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+  .edit-user-form > h2 {
+    width: max-content;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .edit-user-form > label {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+  .edit-user-form > label:not(:first-child) {
+    margin-top: 1.5rem;
+  }
+  .edit-user-form > input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1.35rem;
+    border-radius: 7px;
+    border: 2px solid gainsboro;
+    outline: none;
+  }
+  .edit-user-form > input:focus {
+    border-color: transparent;
+    outline: 2px solid orange;
+  }
+  .edit-user-form > button {
+    margin-top: 1.5rem;
+    width: 100%;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 7px;
+    background-color: orange;
+    cursor: pointer;
+  }
+  .edit-user-form > button:active {
+    background-color: rgba(255, 165, 0, 0.75);
+  }
+</style>
+
+<div class="user-edit-form">
+  <form
+    action="<%=`/subscribers/${user._id}/update?_method=PUT`%>"
+    method="POST"
+    autocomplete="on"
+    class="edit-user-form"
+  >
+    <h2>Edit Account</h2>
+    <label for="name">First Name</label>
+    <input
+      type="text"
+      name="firstName"
+      id="name"
+      placeholder="First Name"
+      value="<%= user.name.first %>"
+      autofocus
+    />
+    <label for="name">Last Name</label>
+    <input
+      type="text"
+      name="lastName"
+      id="name"
+      placeholder="Last Name"
+      value="<%= user.name.last %>"
+      autofocus
+    />
+    <label for="inputEmail">Email Address</label>
+    <input
+      type="email"
+      name="email"
+      id="inputEmail"
+      placeholder="Email address"
+      value="<%= user.email %>"
+      required
+    />
+    <label for="inputZipCode">Zip Code</label>
+    <input
+      type="text"
+      name="zipCode"
+      id="inputZipCode"
+      value="<%= user.zipCode %>"
+      pattern="\d*"
+      placeholder="Zip Code"
+      required
+    />
+    <button type="submit">Save</button>
+  </form>
+</div>

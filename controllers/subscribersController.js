@@ -22,7 +22,11 @@ module.exports = {
   },
 
   indexView: (req, res) => {
-    res.render("subscribers/index");
+    res.render("subscribers/index", {
+      flashMessages: {
+        success: "Loaded all users!",
+      },
+    });
   },
 
   new: (req, res) => {
@@ -33,13 +37,22 @@ module.exports = {
     let subscriberParams = getSubscriberParams(req.body);
     Subscriber.create(subscriberParams)
       .then((subscriber) => {
+        req.flash(
+          "success",
+          `${subscriber.name}'s account created successfully!`
+        );
         res.locals.subscriber = subscriber;
         res.locals.redirect = "/subscribers";
         next();
       })
       .catch((error) => {
         console.log(`Error saving new subscriber: ${error.message}`);
-        next(error);
+        res.locals.redirect = "/subscribers/new";
+        req.flash(
+          "error",
+          `Failed to create subscriber account because: ${error.message}`
+        );
+        next();
       });
   },
 

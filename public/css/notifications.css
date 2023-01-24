@@ -1,0 +1,89 @@
+.flashes {
+  width: 550px;
+  max-width: 100%;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 20px;
+  border-radius: 8px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: #fff;
+  margin-bottom: 2rem;
+  -webkit-animation: fade-in 0.75s ease-out;
+  animation: fade-in 0.75s ease-out;
+}
+
+.left {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: rgba(7, 65, 135, 0.6);
+}
+
+.left > .fa-solid {
+  color: dodgerblue;
+  font-size: 1.25rem;
+}
+
+.center {
+  margin-left: 1rem;
+  line-height: 0.5;
+}
+
+.center > p {
+  color: #444;
+}
+
+.center > p:first-child {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.right > .fa-solid {
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.left > .fa-check {
+  color: green;
+}
+.right > .fa-xmark {
+  color: #333;
+}
+.right > .fa-xmark:hover {
+  cursor: pointer;
+}
+
+.right > .fa-xmark:active {
+  color: aqua;
+}
+
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,5 +1,68 @@
-<div class="data-form">
-  <form action="/users/create" method="POST">
+<style>
+  .data-user-form {
+    width: 100%;
+    padding-inline: 15%;
+  }
+
+  .user-form {
+    width: 600px;
+    margin-inline: auto;
+    max-width: 100%;
+  }
+
+  h2 {
+    width: max-content;
+    padding-inline: 15px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .user-form > label {
+    display: block;
+    width: 100%;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .user-form > label:not(:first-child) {
+    margin-top: 1.5rem;
+  }
+
+  .user-form > input {
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 10px 15px;
+    border: 2px solid gainsboro;
+    border-radius: 7px;
+    outline: none;
+  }
+
+  .user-form > input:focus {
+    border-color: transparent;
+    outline: 2px solid orange;
+  }
+
+  .user-form > button {
+    width: 100%;
+    background-color: orange;
+    font-size: 1.35rem;
+    font-weight: bolder;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 7px;
+    appearance: none;
+    border: none;
+    margin-top: 1.5rem;
+    cursor: pointer;
+  }
+
+  .user-form > button:active {
+    background-color: rgba(255, 165, 0, 0.75);
+  }
+</style>
+
+<div class="data-user-form">
+  <form action="/users/create" method="POST" class="user-form">
     <h2>Create a new user:</h2>
     <label for="first">First Name</label>
     <input
@@ -26,18 +89,16 @@
       placeholder="Email"
       required
     />
+    <label for="zip">Zip Code</label>
+    <input type="text" name="zipCode" id="zip" min="4" max="5" />
     <label for="password">Password</label>
     <input
       type="password"
       name="password"
       id="password"
-      min="8"
-      max="25"
-      pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
-    "
+      autocomplete="new-password"
+      required
     />
-    <label for="zip">Zip Code</label>
-    <input type="text" name="zipCode" id="zip" min="4" max="5" />
     <button type="submit">Create</button>
   </form>
 </div>

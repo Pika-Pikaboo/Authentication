@@ -16,7 +16,25 @@ const express = require("express"),
   layouts = require("express-ejs-layouts"),
   homeController = require("./controllers/homeController"),
   errorController = require("./controllers/errorController"),
-  subscribersController = require("./controllers/subscribersController");
+  subscribersController = require("./controllers/subscribersController"),
+  usersController = require("./controllers/usersController");
+
+const expressSession = require("express-session"),
+  cookieParser = require("cookie-parser"),
+  connectFlash = require("connect-flash");
+
+router.use(cookieParser("secret_password"));
+router.use(
+  expressSession({
+    secret: "secret_password",
+    cookie: {
+      maxAge: 4000000,
+    },
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+router.use(connectFlash());
 
 app.use("/", router);
 
@@ -36,6 +54,10 @@ router.use(
     methods: ["POST", "GET"],
   })
 );
+router.use((req, res, next) => {
+  res.locals.flashMessages = req.flash();
+  next();
+});
 
 router.get("/", homeController.showHome);
 router.get("/courses", homeController.showCourses);
@@ -43,6 +65,30 @@ router.get(
   "/subscribers",
   subscribersController.index,
   subscribersController.indexView
+);
+
+router.get("/users/new", usersController.new);
+router.get("/users", usersController.index, usersController.indexView);
+
+router.get("/users/login", usersController.login);
+/* router.post(
+  "/users/login",
+  usersController.authenticate,
+  usersController.redirectView
+  ); */
+router.get("/users/new", usersController.new);
+router.post(
+  "/users/create",
+  usersController.create,
+  usersController.redirectView
+);
+router.get("/users/:id", usersController.show, usersController.showView);
+
+router.get("/users/:id/edit", usersController.edit);
+router.delete(
+  "/users/:id/delete",
+  usersController.delete,
+  usersController.redirectView
 );
 router.get("/subscribers/new", subscribersController.new);
 router.get(
