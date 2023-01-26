@@ -73,6 +73,15 @@
       .nav-container > h2 {
         text-align: center;
       }
+      .status {
+        position: fixed;
+        top: 10px;
+        right: 20px;
+        padding: 20px;
+        font-size: 1.35rem;
+        border-radius: 50vw;
+        background-color: lightgreen;
+      }
     </style>
     <title>Layouts</title>
   </head>
@@ -89,6 +98,29 @@
         </ul>
       </div>
     </nav>
+    <% if (loggedIn) { %>
+    <div class="status">
+      Logged in as
+      <a href="<%=`/users/${currentUser._id}`%>">
+        <%= currentUser.fullName %>
+      </a>
+      <br />
+      <a
+        href="/users/logout"
+        style="
+          color: red;
+          text-align: right;
+          display: inline-block;
+          width: 100%;
+        "
+        >Log out</a
+      >
+    </div>
+    <%} else {%>
+    <div class="status">
+      <a href="/users/login">Log In</a>
+    </div>
+    <% } %>
     <div>
       <% if (flashMessages) { %> <% if (flashMessages.success) { %>
       <div class="flashes">

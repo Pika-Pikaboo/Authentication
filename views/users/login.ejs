@@ -1,4 +1,49 @@
-<form action="/users/login" method="POST">
+<style>
+  .login-form {
+    width: 550px;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+  .login-form > h2 {
+    text-align: center;
+  }
+  .login-form > label {
+    display: block;
+    width: 100%;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .login-form > input {
+    font-size: 1.35rem;
+    padding: 10px;
+    border: 2px solid gainsboro;
+    border-radius: 7px;
+    outline: none;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .login-form > input:focus {
+    border-color: transparent;
+    outline: 2px solid orange;
+  }
+  .login-form > button {
+    appearance: none;
+    border: none;
+    border-radius: 7px;
+    width: 100%;
+    color: #fff;
+    padding: 10px 15px;
+    font-weight: 500;
+    font-size: 1.5rem;
+    background-color: orange;
+    cursor: pointer;
+  }
+  .login-form > button:active {
+    background-color: rgba(255, 165, 0, 0.6);
+  }
+</style>
+
+<form action="/users/login" method="POST" class="login-form" autocomplete="on">
   <h2>Login:</h2>
   <label for="inputEmail">Email address</label>
   <input
@@ -14,6 +59,7 @@
     type="password"
     name="password"
     id="inputPassword"
+    autocomplete="current-password"
     placeholder="Password"
     required
   />

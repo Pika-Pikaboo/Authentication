@@ -14,27 +14,18 @@ const express = require("express"),
   router = express.Router(),
   methodOverride = require("method-override"),
   layouts = require("express-ejs-layouts"),
-  homeController = require("./controllers/homeController"),
+  passport = require("passport"),
+  expressValidator = require("express-validator");
+
+const homeController = require("./controllers/homeController"),
   errorController = require("./controllers/errorController"),
   subscribersController = require("./controllers/subscribersController"),
-  usersController = require("./controllers/usersController");
+  usersController = require("./controllers/usersController"),
+  User = require("./models/users");
 
 const expressSession = require("express-session"),
   cookieParser = require("cookie-parser"),
   connectFlash = require("connect-flash");
-
-router.use(cookieParser("secret_password"));
-router.use(
-  expressSession({
-    secret: "secret_password",
-    cookie: {
-      maxAge: 4000000,
-    },
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-router.use(connectFlash());
 
 app.use("/", router);
 
@@ -54,10 +45,33 @@ router.use(
     methods: ["POST", "GET"],
   })
 );
+
+router.use(expressValidator());
+router.use(cookieParser("secretCuisine007"));
+router.use(
+  expressSession({
+    secret: "secretCuisine007",
+    cookie: {
+      maxAge: 4000000,
+    },
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+router.use(connectFlash());
+router.use(passport.initialize()); // initialize to use passport as middleware
+router.use(passport.session()); // instruct passport to use session
+passport.use(User.createStrategy()); // creating default strategy
+// works only after I set up the User model with passport-local-mongoose
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+// set up passport to compact, encrypt, decrypt user data
 router.use((req, res, next) => {
   res.locals.flashMessages = req.flash();
+  res.locals.loggedIn = req.isAuthenticated();
+  res.locals.currentUser = req.user;
   next();
-});
+}); // will be able to access flash messages in the views
 
 router.get("/", homeController.showHome);
 router.get("/courses", homeController.showCourses);
@@ -71,14 +85,17 @@ router.get("/users/new", usersController.new);
 router.get("/users", usersController.index, usersController.indexView);
 
 router.get("/users/login", usersController.login);
-/* router.post(
-  "/users/login",
-  usersController.authenticate,
+router.post("/users/login", usersController.authenticate);
+router.get(
+  "/users/logout",
+  usersController.logout,
   usersController.redirectView
-  ); */
+);
+
 router.get("/users/new", usersController.new);
 router.post(
   "/users/create",
+  usersController.validate,
   usersController.create,
   usersController.redirectView
 );
